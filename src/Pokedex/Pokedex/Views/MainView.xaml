@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Pokedex"
+             xmlns:views="clr-namespace:Pokedex.Views"
+             xmlns:controls="clr-namespace:Pokedex.Controls"
+	         xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"             
+             BackgroundColor="White"
+             x:Name="page"
+             Padding="0"
+             x:Class="Pokedex.Views.MainView">
+    <ContentPage.Content>
+        <Grid>
+            <CollectionView    
+                        Margin="10"
+                        ItemsSource="{Binding Pokemons}"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="FillAndExpand">
+                    <CollectionView.Header>
+                        <StackLayout Spacing="0">
+                            <views:HeaderView></views:HeaderView>
+                            <Label FontSize="Micro" HorizontalTextAlignment="Start">Filtrar por:</Label>
+                            <FlexLayout
+                                    Wrap="Wrap" 
+                                    JustifyContent="Start"
+                                    VerticalOptions="Start"
+                                    BindableLayout.ItemsSource="{Binding PokemonTypes}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame CornerRadius="5" Padding="10, 4"  Margin="2,2" FlexLayout.AlignSelf="Start" BackgroundColor="{StaticResource PrimaryColor}">
+                                            <Label Text="{Binding Item}" VerticalOptions="Center" TextTransform="Uppercase" FontSize="Micro" TextColor="White">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Selected}" Value="True">
+                                                        <Setter Property="TextColor" Value="Black"></Setter>
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                        Command="{Binding BindingContext.FilterItemsCommand, Source={x:Reference page}}" 
+                                                        CommandParameter="{Binding .}"
+                                                        NumberOfTapsRequired="1">
+                                                </TapGestureRecognizer>
+                                            </Frame.GestureRecognizers>
+                                            <Frame.Triggers>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding Selected}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource SecondaryColor}"></Setter>
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                        </StackLayout>
+                    </CollectionView.Header>
+                    <CollectionView.EmptyView>
+                        <Label Text="Nenhum item encontrado"></Label>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="2" VerticalItemSpacing="2"></GridItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame VerticalOptions="FillAndExpand" 
+                               HorizontalOptions="FillAndExpand"
+                               BorderColor="{StaticResource SecondaryColor600}" CornerRadius="6" Padding="8" HasShadow="True">
+                                <Frame.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{StaticResource SecondaryColor}" Offset="0.0"/>
+                                        <GradientStop Color="{StaticResource SecondaryColor}" Offset="0.6"/>
+                                        <GradientStop Color="{StaticResource TertiaryColor}" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding BindingContext.DisplayDetailsCommand, Source={x:Reference page}}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1">
+                                    </TapGestureRecognizer>
+                                </Frame.GestureRecognizers>
+                                <Grid VerticalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="3*"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <StackLayout Grid.Row="0"
+                                                Spacing="3"
+                                                Orientation="Horizontal"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Center"
+                                                BindableLayout.ItemsSource="{Binding Types}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Label Text="{Binding Type.Name}" TextColor="{StaticResource TertiaryColor}" Padding="3, 1"  
+                                                       VerticalOptions="Start"
+                                                       HorizontalOptions="Start"
+                                                       BackgroundColor="#b0ffffff"
+                                                       FontSize="Micro"></Label>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+
+                                    <Frame
+                                        Grid.Row="1"
+                                        CornerRadius="6"
+                                        Margin="0"
+                                        Padding="0"
+                                        HasShadow="False"
+                                        HeightRequest="170"
+                                        BackgroundColor="#D9FFFFFF">
+                                        <image:CachedImage
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="CenterAndExpand"
+                                            HeightRequest="120"
+                                            Source="{Binding Sprites.FrontDefault}"
+                                            Aspect="AspectFit" 
+                                            FadeAnimationEnabled="True">
+                                        </image:CachedImage>
+                                    </Frame>
+
+                                    <StackLayout 
+                                            Grid.Row="2"
+                                            Padding="5" >
+                                        <Label 
+                                            Text="{Binding Name}" 
+                                            TextColor="White"
+                                            FontSize="Default"
+                                            VerticalTextAlignment="Start"
+                                            HorizontalTextAlignment="Center"
+                                            VerticalOptions="FillAndExpand" 
+                                            HorizontalOptions="FillAndExpand" />
+
+                                    </StackLayout>
+
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <controls:Paging
+                            VerticalOptions="FillAndExpand"
+                            SelectedPageBackgroundColor="{StaticResource SecondaryColor}"
+                            PageChangedCommand="{Binding ChangePageCommand}"
+                            CurrentPage="{Binding CurrentPage}"
+                            PageBackgroundColor="{StaticResource PrimaryColor}"
+                            TextColor="White"
+                            PageSize="{Binding PageSize}"
+                            TotalItems="{Binding TotalItems}">
+                        </controls:Paging>
+                    </CollectionView.Footer>
+                </CollectionView>
+
+                <views:LoadingView IsVisible="{Binding IsBusy}"></views:LoadingView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

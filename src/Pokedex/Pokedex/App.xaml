@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#276FB7</Color>
+            <Color x:Key="SecondaryColor">#F7C406</Color>
+            <Color x:Key="SecondaryColor600">#F79D06</Color>
+            <Color x:Key="TertiaryColor">#E3350D</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
