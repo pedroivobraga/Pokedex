@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex.Views.HeaderView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="45"></Setter>
+                <Setter Property="VerticalOptions" Value="Start"></Setter>
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid Padding="0, 5,0,15" BackgroundColor="White" VerticalOptions="Start">
+            <Label FontFamily="Pokemon" 
+                           Text="Pokédex" 
+                           TextColor="#374d89" 
+                           TranslationX="-5"  
+                           TranslationY="5" ></Label>
+            <Label FontFamily="Pokemon" 
+                           Text="Pokédex" 
+                           TextColor="#374d89" 
+                           TranslationX="-3"  
+                           TranslationY="3" ></Label>
+            <Label FontFamily="Pokemon" Text="Pokédex" TextColor="{StaticResource SecondaryColor}" ></Label>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
